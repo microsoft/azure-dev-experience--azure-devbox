@@ -1,33 +1,76 @@
-# Project
+# Azure Developer Experience - Azure DevBox
 
-> This repo has been populated by an initial template to help get you started. Please
-> make sure to update the content to build a great experience for community-building.
+Azure Developer experience - using Azure DevBox as a primary environment for Azure development.
 
-As the maintainer of this project, please make a few updates:
+> [!NOTE]
+> This is not official Microsoft product documentation. Please get yourself familiar with Azure DevBox https://learn.microsoft.com/en-us/azure/dev-box/overview-what-is-microsoft-dev-box prior to reading this document.
 
-- Improving this README.MD file to provide a great experience
-- Updating SUPPORT.MD with content about this project's support experience
-- Understanding the security reporting process in SECURITY.MD
-- Remove this section from the README
+## Problem Definition
 
-## Contributing
+Business solution development team at an enterprise organization requiring strong security controls is facing number of challenges when developing Azure based solutions.
+The following use cases are representing some of the key challenges.
 
-This project welcomes contributions and suggestions.  Most contributions require you to agree to a
-Contributor License Agreement (CLA) declaring that you have the right to, and actually do, grant us
-the rights to use your contribution. For details, visit https://cla.opensource.microsoft.com.
+Please see [Azure Developer Experience - Development Environment Options - Connecting to Azure private IPs from local developer Workstation](https://github.com/zojovano-articles/azure-developer-environment-options/tree/main#1-connecting-to-azure-private-ips-from-local-developer-workstation) for more details.
 
-When you submit a pull request, a CLA bot will automatically determine whether you need to provide
-a CLA and decorate the PR appropriately (e.g., status check, comment). Simply follow the instructions
-provided by the bot. You will only need to do this once across all repos using our CLA.
 
-This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/).
-For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or
-contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
+## Current Architecture and Developer Experience
 
-## Trademarks
+Developer is either connecting from office location with corporate network connected to Azure via ExpressRoute (Private Peering) or uses VPN from home office location. VPN is connected to the corporate network and from that point, the flow is the same as connecting from office location.
+In both cases, the TLS  connection to Azure services is terminated on the Firewalls and Firewall provided digital certificate is provided for establishing TLS connection.
+As described in referenced problem definition, developers have to submit firewall requests for connecting to their development environments hosted in Azure. Developers also have to configure trust for Firewall's digital certificates.
+Developers are spending significant time maintaining these connections.
 
-This project may contain trademarks or logos for projects, products, or services. Authorized use of Microsoft 
-trademarks or logos is subject to and must follow 
-[Microsoft's Trademark & Brand Guidelines](https://www.microsoft.com/en-us/legal/intellectualproperty/trademarks/usage/general).
-Use of Microsoft trademarks or logos in modified versions of this project must not cause confusion or imply Microsoft sponsorship.
-Any use of third-party trademarks or logos are subject to those third-party's policies.
+![Current Developer Experience](./assets/devexperience-current-architecture2.png)
+
+
+## Developer Experience - Azure DevBox Solution Option
+
+Use of Azure DevBox together with specific environment management practices may address these connectivity challenges.
+
+### Assumptions
+
+The main ***assumption*** is that by having isolated Development environment in "non-routable" Azure VNET, use of Firewalls will not be required.
+Rationale for the assumption:
+- "Development" environment is not integrated / connected to any other network (it is Sandboxed)
+- AzureDevBox uses secure Remote Desktop Gateway managed by Microsoft as an entry point to the developer's VDI
+- Azure DevBox host is not connected to corporate network (***if*** AAD Join is used)
+
+Other assumptions:
+- There is no need to access corporate network from the Azure DevBox environment. Developer will be using DevBox for development and access to Azure development environment and continue using his Workstation/Laptop to access other corporate services (Office, etc)
+- Access to other Azure non-production (System Test, User Acceptance Test, etc) and Production environments is not needed from Azure DevBox. Development teams should deploy and test these environments by using Deployment Automation practices within the overall DevOps practices&processes.
+
+> [!NOTE]
+> The use of Azure DevBox which requires use of Firewall in between DevBox and Azure development environment would not address specific problem. 
+> It may provide other benefits unrelated to this particular problem (e.g. internet speed, higher compute power, pre-configured dev environments for new developers)
+
+
+
+### Solution Description
+
+Developer will use Azure DevBox assigned personal Virtual Desktop. All development tools (e.g. Visual Studio, VSCode, etc) are pre-installed in the virtual desktop.
+The desktop is connected to dedicated (sandboxed) development environment in Azure. Azure DevBox is attached to development Azure VNET. The VNET is non-routeable - it is not connected to any other Azure VNET or to corporate network(s).
+
+![DevBox Portal](./assets/ADB-login.png)
+
+Azure resources required for development are deployed to the environment and used by the development team as a shared development environment. All Azure resources deployed with private IPs are accessible from developer's DevBox virtual desktop.
+
+![DevBox Portal](./assets/ADB-desktop.png)
+
+There are no Firewalls in between developer's DevBox virtual desktop and Azure resources with private IPs.
+
+
+![DevBox Infrastructure Architecture](./assets/devbox-architecture.png)
+
+The following diagram describes Remote Desktop Gateway architecture. Please ignore Azure Directory Service given that the proposal assumes use of AAD Join instead.
+![AVD network and service architecture applicable to DevBox](./assets/azure-virtual-desktop-network-connections.svg)
+
+
+
+# Appendix
+
+![Azure DevBox developer portal](./assets/dev-box-architecture.png)
+
+# References
+
+- https://learn.microsoft.com/en-us/azure/dev-box/overview-what-is-microsoft-dev-box
+- [Understanding Azure Virtual Desktop network connectivity](https://learn.microsoft.com/azure/virtual-desktop/network-connectivity)
