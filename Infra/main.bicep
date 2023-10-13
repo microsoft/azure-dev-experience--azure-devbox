@@ -179,15 +179,8 @@ resource devbox_keyvault_secret 'Microsoft.KeyVault/vaults/secrets@2023-02-01' =
 }
 
 
-//var roleDefinitionId = subscriptionResourceId('Microsoft.Authorization/roleDefinitions', 'Key Vault Secrets User')
 param roleDefinitionId string = '4633458b-17de-408a-b874-0445c86b69e6'
 
-/*
-resource roleDefinition 'Microsoft.Authorization/roleDefinitions@2022-04-01' existing = {
-  name: 'Key Vault Secrets User'
-  scope: []
-}
-*/
 
 output roleDefinitionOut string = roleDefinitionId
 
@@ -200,17 +193,6 @@ resource keyVaultRoleAssignment 'Microsoft.Authorization/roleAssignments@2020-04
   }
 }
 
-/*
-resource roleassignment 'Microsoft.Authorization/roleAssignments@2020-04-01-preview' = {
-  name: guid(roleDefinitionId, resourceGroup().id)
-
-  properties: {
-    principalType: 'ServicePrincipal'
-    roleDefinitionId: subscriptionResourceId('Microsoft.Authorization/roleDefinitions', roleDefinitionId)
-    principalId: msi.properties.principalId
-  }
-}
-*/
 
 // Deploy DevBox Catalog
 

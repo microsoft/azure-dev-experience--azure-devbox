@@ -64,7 +64,9 @@ There are no Firewalls in between developer's DevBox virtual desktop and Azure r
 The following diagram describes Remote Desktop Gateway architecture. Please ignore Azure Directory Service given that the proposal assumes use of AAD Join instead.
 ![AVD network and service architecture applicable to DevBox](./assets/azure-virtual-desktop-network-connections.svg)
 
+## Sample
 
+Infra folder contains Bicep based IaC definition for deploying the sample environment described in this document. Please make sure you insert your environment specific parameters.
 
 # Appendix
 

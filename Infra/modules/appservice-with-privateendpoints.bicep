@@ -3,6 +3,7 @@ param vnetName string = 'devexperience-devbox'
 param subnetName string = 'devexperience-devbox-subnet'
 param location string = 'westeurope'
 param virtualNetworkId string = '/subscriptions/878f6558-9f86-430e-a0da-c76c12722d97/resourceGroups/devexperience-devbox/providers/Microsoft.Network/virtualNetworks/devexperience-devbox' // it is expected that this module will be invoked from parent bicep and VNET will be created from there and ID passed as a parameter.
+param targetSubResource array = ['sites']
 
 /*
 Deployes an App Service Plan and App service with a private endpoint in the existing subnet. The app service is configured to use the private DNS zone.
@@ -109,10 +110,6 @@ resource sites_devexperience_devbox_name_web 'Microsoft.Web/sites/config@2022-09
 
 var subnetId = resourceId('Microsoft.Network/virtualNetworks/subnets', vnetName, subnetName)
 
-//param privateLinkResource string = '/subscriptions/878f6558-9f86-430e-a0da-c76c12722d97/resourceGroups/devexperience-devbox/providers/Microsoft.Web/sites/devexperience-devbox'
-param targetSubResource array = ['sites']
-//param subnet string
-//param virtualNetworkId string
 
 resource privateEndpoint 'Microsoft.Network/privateEndpoints@2021-05-01' = {
   location: location
