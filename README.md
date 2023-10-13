@@ -1,6 +1,7 @@
 # Azure Developer Experience - Azure DevBox
 
 Azure Developer experience - using Azure DevBox as a primary environment for Azure development.
+This document is part of broader [Azure developer experience - Developer environment options analysis document](https://github.com/microsoft/Azure-Dev-Experience-developer-environment-options)
 
 > [!NOTE]
 > This is not official Microsoft product documentation. Please get yourself familiar with Azure DevBox https://learn.microsoft.com/en-us/azure/dev-box/overview-what-is-microsoft-dev-box prior to reading this document.
@@ -64,13 +65,14 @@ There are no Firewalls in between developer's DevBox virtual desktop and Azure r
 The following diagram describes Remote Desktop Gateway architecture. Please ignore Azure Directory Service given that the proposal assumes use of AAD Join instead.
 ![AVD network and service architecture applicable to DevBox](./assets/azure-virtual-desktop-network-connections.svg)
 
-## Sample
+![Azure DevBox developer portal](./assets/dev-box-architecture.png)
+
+## Code Sample
 
 Infra folder contains Bicep based IaC definition for deploying the sample environment described in this document. Please make sure you insert your environment specific parameters.
 
-# Appendix
 
-![Azure DevBox developer portal](./assets/dev-box-architecture.png)
+
 
 # References
 
