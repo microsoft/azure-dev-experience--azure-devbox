@@ -1,6 +1,6 @@
 # Disclaimer
 
-This is not official Microsoft product documentation. It is maintained by community contributors.
+This is not an official Microsoft product documentation. It is maintained by community contributors.
 
 # Support
 
