@@ -1,12 +1,6 @@
-# TODO: The maintainer of this repo has not yet edited this file
+# Disclaimer
 
-**REPO OWNER**: Do you want Customer Service & Support (CSS) support for this product/project?
-
-- **No CSS support:** Fill out this template with information about how to file issues and get help.
-- **Yes CSS support:** Fill out an intake form at [aka.ms/onboardsupport](https://aka.ms/onboardsupport). CSS will work with/help you to determine next steps.
-- **Not sure?** Fill out an intake as though the answer were "Yes". CSS will help you decide.
-
-*Then remove this first heading from this SUPPORT.MD file before publishing your repo.*
+This is not official Microsoft product documentation. It is mainteined by community contributors.
 
 # Support
 
