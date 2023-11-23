@@ -4,7 +4,7 @@ Azure Developer experience - using Azure DevBox as a primary environment for Azu
 This document is part of broader [Azure developer experience - Developer environment options analysis document](https://github.com/microsoft/Azure-Dev-Experience-developer-environment-options)
 
 > [!NOTE]
-> This is not official Microsoft product documentation. It is maintained by community contributors.
+> This is not an official Microsoft product documentation. It is maintained by community contributors.
 > Please get yourself familiar with Azure DevBox https://learn.microsoft.com/en-us/azure/dev-box/overview-what-is-microsoft-dev-box prior to reading this document.
 
 ## Problem Definition
